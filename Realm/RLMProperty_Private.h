@@ -24,7 +24,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-BOOL RLMPropertyTypeIsNullable(RLMPropertyType propertyType);
 BOOL RLMPropertyTypeIsComputed(RLMPropertyType propertyType);
 FOUNDATION_EXTERN void RLMValidateSwiftPropertyName(NSString *name);
 
@@ -47,8 +46,7 @@ FOUNDATION_EXTERN void RLMValidateSwiftPropertyName(NSString *name);
                                  instance:(RLMObjectBase *)objectInstance;
 
 - (instancetype)initSwiftListPropertyWithName:(NSString *)name
-                                         ivar:(Ivar)ivar
-                              objectClassName:(nullable NSString *)objectClassName;
+                                     instance:(id)object;
 
 - (instancetype)initSwiftOptionalPropertyWithName:(NSString *)name
                                           indexed:(BOOL)indexed

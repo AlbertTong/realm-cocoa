@@ -51,6 +51,8 @@ void RLMSetErrorOrThrow(NSError *error, NSError **outError);
 
 // returns if the object can be inserted as the given type
 BOOL RLMIsObjectValidForProperty(id obj, RLMProperty *prop);
+BOOL RLMValidateValue(id value, RLMPropertyType type, bool optional, bool array,
+                      NSString *objectClassName);
 
 // gets default values for the given schema (+defaultPropertyValues)
 // merges with native property defaults if Swift class
@@ -114,8 +116,6 @@ static inline NSString *RLMTypeToString(RLMPropertyType type) {
             return @"any";
         case RLMPropertyTypeObject:
             return @"object";
-        case RLMPropertyTypeArray:
-            return @"array";
         case RLMPropertyTypeLinkingObjects:
             return @"linking objects";
     }

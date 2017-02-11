@@ -91,6 +91,8 @@
 
 @implementation AllOptionalTypes
 @end
+@implementation AllPrimitiveArrays
+@end
 
 #pragma mark - Real Life Objects
 #pragma mark -

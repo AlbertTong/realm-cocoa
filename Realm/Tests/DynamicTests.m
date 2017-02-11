@@ -158,7 +158,7 @@
     
     // verify properties
     RLMRealm *dyrealm = [self realmWithTestPathAndSchema:nil];
-    RLMResults *results = [dyrealm allObjects:AllTypesObject.className];
+    RLMResults<RLMObject *> *results = [dyrealm allObjects:AllTypesObject.className];
     XCTAssertEqual(results.count, (NSUInteger)2, @"Should have 2 objects");
     
     RLMObjectSchema *schema = dyrealm.schema[AllTypesObject.className];
@@ -208,10 +208,10 @@
     [dyrealm createObject:ArrayPropertyObject.className withValue:@[@"name", @[stringObject, stringObject1], @[]]];
     [dyrealm commitWriteTransaction];
 
-    RLMResults *results = [dyrealm allObjects:ArrayPropertyObject.className];
+    RLMResults<RLMObject *> *results = [dyrealm allObjects:ArrayPropertyObject.className];
     XCTAssertEqual(1U, results.count);
     RLMObject *arrayObj = results.firstObject;
-    RLMArray *array = arrayObj[@"array"];
+    RLMArray<RLMObject *> *array = arrayObj[@"array"];
     XCTAssertEqual(2U, array.count);
     XCTAssertEqualObjects(array[0][@"stringCol"], stringObject[@"stringCol"]);
 

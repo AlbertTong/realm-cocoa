@@ -27,21 +27,6 @@
 
 - (void)testPropertyTypes
 {
-    // Primitive types
-    XCTAssertEqual((int)RLMPropertyTypeInt,     (int)realm::type_Int,         @"Int");
-    XCTAssertEqual((int)RLMPropertyTypeBool,    (int)realm::type_Bool,        @"Bool");
-    XCTAssertEqual((int)RLMPropertyTypeFloat,   (int)realm::type_Float,       @"Float");
-    XCTAssertEqual((int)RLMPropertyTypeDouble,  (int)realm::type_Double,      @"Double");
-    
-    // Object types
-    XCTAssertEqual((int)RLMPropertyTypeString,  (int)realm::type_String,      @"String");
-    XCTAssertEqual((int)RLMPropertyTypeData,    (int)realm::type_Binary,      @"Binary");
-    XCTAssertEqual((int)RLMPropertyTypeDate,    (int)realm::type_Timestamp,   @"Date");
-    
-    // Array/Linked object types
-    XCTAssertEqual((int)RLMPropertyTypeObject,  (int)realm::type_Link,        @"Link");
-    XCTAssertEqual((int)RLMPropertyTypeArray,   (int)realm::type_LinkList,    @"Link list");
-    
     XCTAssertEqualObjects(RLMTypeToString(RLMPropertyTypeString),   @"string",  @"stringType");
     XCTAssertEqualObjects(RLMTypeToString(RLMPropertyTypeInt),      @"int",     @"intType");
     XCTAssertEqualObjects(RLMTypeToString(RLMPropertyTypeBool),     @"bool",    @"boolType");
@@ -50,7 +35,6 @@
     XCTAssertEqualObjects(RLMTypeToString(RLMPropertyTypeDouble),   @"double",  @"doubleType");
     XCTAssertEqualObjects(RLMTypeToString(RLMPropertyTypeFloat),    @"float",   @"floatType");
     XCTAssertEqualObjects(RLMTypeToString(RLMPropertyTypeObject),   @"object",  @"objectType");
-    XCTAssertEqualObjects(RLMTypeToString(RLMPropertyTypeArray),    @"array",   @"arrayType");
 
     XCTAssertEqualObjects(RLMTypeToString(RLMPropertyType(-1)),    @"Unknown",   @"Unknown type");
 }

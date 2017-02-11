@@ -82,13 +82,7 @@ static id validatedObjectForProperty(id obj, RLMProperty *prop, RLMSchema *schem
         return obj;
     }
 
-    // check for object or array of properties
-    if (prop.type == RLMPropertyTypeObject) {
-        // for object create and try to initialize with obj
-        RLMObjectSchema *objSchema = schema[prop.objectClassName];
-        return [[objSchema.objectClass alloc] initWithValue:obj schema:schema];
-    }
-    else if (prop.type == RLMPropertyTypeArray && [obj conformsToProtocol:@protocol(NSFastEnumeration)]) {
+    if (prop.array && [obj conformsToProtocol:@protocol(NSFastEnumeration)]) {
         // for arrays, create objects for each element and return new array
         RLMObjectSchema *objSchema = schema[prop.objectClassName];
         RLMArray *objects = [[RLMArray alloc] initWithObjectClassName:objSchema.className];
@@ -96,6 +90,11 @@ static id validatedObjectForProperty(id obj, RLMProperty *prop, RLMSchema *schem
             [objects addObject:[[objSchema.objectClass alloc] initWithValue:el schema:schema]];
         }
         return objects;
+    }
+    else if (prop.type == RLMPropertyTypeObject) {
+        // for object create and try to initialize with obj
+        RLMObjectSchema *objSchema = schema[prop.objectClassName];
+        return [[objSchema.objectClass alloc] initWithValue:obj schema:schema];
     }
 
     // if not convertible to prop throw
@@ -186,7 +185,7 @@ id RLMCreateManagedAccessor(Class cls, __unsafe_unretained RLMRealm *realm, RLMC
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key {
     RLMProperty *property = _objectSchema[key];
     if (Ivar ivar = property.swiftIvar) {
-        if (property.type == RLMPropertyTypeArray && [value conformsToProtocol:@protocol(NSFastEnumeration)]) {
+        if (property.array && [value conformsToProtocol:@protocol(NSFastEnumeration)]) {
             RLMArray *array = [object_getIvar(self, ivar) _rlmArray];
             [array removeAllObjects];
             [array addObjects:validatedObjectForProperty(value, property, RLMSchema.partialSharedSchema)];
